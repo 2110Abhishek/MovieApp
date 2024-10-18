@@ -1,4 +1,3 @@
-// src/components/Header.js
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,8 +8,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import { searchMovies } from "../redux/movieActions";
 
+// Styled components
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -52,8 +56,46 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const LoginButton = styled(Button)(({ theme }) => ({
+  color: '#ecf0f1',
+  backgroundColor: '#34495e',
+  '&:hover': {
+    backgroundColor: '#2c3e50',
+    transform: 'scale(1.05)',
+    transition: 'transform 0.3s ease',
+  },
+  marginLeft: theme.spacing(2),
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+  transition: 'background-color 0.3s ease, transform 0.3s ease',
+}));
+
+const HeaderTitle = styled(Typography)(({ theme }) => ({
+  flexGrow: 1,
+  display: { xs: "none", sm: "block" },
+  fontWeight: 'bold',
+  textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
+  transition: 'color 0.3s ease',
+  '&:hover': {
+    color: '#d500f9',
+  },
+}));
+
+const AvatarWrapper = styled(Box)(({ theme }) => ({
+  position: 'relative',
+}));
+
+const UserAvatar = styled(Avatar)(({ theme }) => ({
+  cursor: 'pointer',
+  '&:hover': {
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+    transform: 'scale(1.1)',
+    transition: 'transform 0.3s ease',
+  },
+}));
+
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -65,18 +107,35 @@ export default function Header() {
     }
   };
 
+  const handleLogin = () => {
+    navigate('/login');
+  };
+
+  const handleAvatarClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleProfile = () => {
+    navigate('/profile');
+    handleCloseMenu();
+  };
+
+  const handleLogout = () => {
+    // Implement logout functionality
+    handleCloseMenu();
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" sx={{ bgcolor: '#34495e', boxShadow: 'none' }}>
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
+          <HeaderTitle variant="h6" noWrap component="div">
             MovieApp
-          </Typography>
+          </HeaderTitle>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -90,6 +149,20 @@ export default function Header() {
               />
             </form>
           </Search>
+          <LoginButton variant="contained" onClick={handleLogin}>
+            Login
+          </LoginButton>
+          <AvatarWrapper>
+            <UserAvatar onClick={handleAvatarClick} alt="User Avatar" src="/static/images/avatar/1.jpg" />
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleCloseMenu}
+            >
+              <MenuItem onClick={handleProfile}>Profile</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
+          </AvatarWrapper>
         </Toolbar>
       </AppBar>
     </Box>
