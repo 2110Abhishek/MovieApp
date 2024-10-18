@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Styled components
 const BackButton = ({ onClick }) => (
-  <IconButton onClick={onClick} sx={{ position: 'absolute', top: 20, left: 20, color: '#fff' }}>
+  <IconButton onClick={onClick} sx={{ position: 'absolute', top: 20, left: 20, color: '#bdc3c7' }}>
     <ArrowBackIcon />
   </IconButton>
 );
@@ -26,7 +26,7 @@ export default function CreateAccountPage() {
         p: 3,
         borderRadius: 2,
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
-        bgcolor: '#2c3e50', // Dark background for contrast
+        bgcolor: 'transparent', // Keep background transparent
         color: '#ecf0f1', // Light text color
         position: 'relative',
       }}
@@ -34,7 +34,7 @@ export default function CreateAccountPage() {
       {/* Go Back Button */}
       <BackButton onClick={handleGoBack} />
 
-      <Typography variant="h5" gutterBottom textAlign="center">
+      <Typography variant="h5" gutterBottom textAlign="center" sx={{ color: '#bdc3c7' }}>
         Create New Account
       </Typography>
 
@@ -107,7 +107,7 @@ export default function CreateAccountPage() {
       <FormControlLabel
         control={<Checkbox sx={{ color: '#d500f9' }} />}
         label="I agree to the Terms and Conditions"
-        sx={{ mt: 2, color: '#ecf0f1' }}
+        sx={{ mt: 2, color: '#bdc3c7' }} // Darkened color
       />
       <Button
         variant="contained"

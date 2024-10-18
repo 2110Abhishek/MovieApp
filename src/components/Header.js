@@ -57,10 +57,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const LoginButton = styled(Button)(({ theme }) => ({
-  color: '#ecf0f1',
-  backgroundColor: '#34495e',
+  color: '#ffffff', // Change text color to white
+  backgroundColor: '#007bff', // New background color (e.g., a blue shade)
   '&:hover': {
-    backgroundColor: '#2c3e50',
+    backgroundColor: '#0056b3', // Darker blue for hover
     transform: 'scale(1.05)',
     transition: 'transform 0.3s ease',
   },
@@ -131,7 +131,7 @@ export default function Header() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ bgcolor: '#34495e', boxShadow: 'none' }}>
+      <AppBar position="fixed" sx={{ bgcolor: 'linear-gradient(135deg, #e50914, #1aad4b)', boxShadow: 'none' }}>
         <Toolbar>
           <HeaderTitle variant="h6" noWrap component="div">
             MovieApp
